@@ -23,10 +23,10 @@ def union_parent(parent: list, a: int, b: int):
 
 
 documents = []
-with open('./data/news-politics-20231130-text.json', 'r') as file:
+with open('./data/news-politics-20231130.json', 'r') as file:
     text_data = json.load(file)
 for news in text_data:
-    documents.append((news["text"]))
+    documents.append((news["content"]))
 
 # TF-IDF 벡터화
 vectorizer = TfidfVectorizer()
@@ -56,5 +56,5 @@ for i in range(len(parent)):
 data = sorted(list(d.items()), key=lambda x: len(x[1]), reverse=True)
 json_data = json.dumps(data, ensure_ascii=False, indent=4)
 
-with open(f'result.json', 'w', encoding='utf-8') as file:
+with open(f'./data/result.json', 'w', encoding='utf-8') as file:
     file.write(json_data)
