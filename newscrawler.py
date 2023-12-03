@@ -20,13 +20,15 @@ def crawl_daum_news(category: str, date: str):
         }
 
         response = requests.get(url, params=params, headers=header)
-        print(f"DEBUG  {category}-{date} page: {page}")
         html = response.text
         soup = BeautifulSoup(html, 'html.parser')
         news = soup.find("ul", {"class": "list_news2 list_allnews"}).find_all("strong", {"class": "tit_thumb"})
 
-        if result and news[-1].find('a').get("href") == result[-1]["url"]:
+        current_page = soup.find("em", {"class": "num_page"}).text
+        if page != int(current_page[7:]):
             break
+
+        print(f"DEBUG  {category}-{date} page: {page}")
 
         for idx, item in enumerate(news):
             link = item.find('a')
@@ -71,4 +73,7 @@ def crawl_news_paragraph(url: str):
 
 
 if __name__ == "__main__":
-    crawl_daum_news(category="politics", date="20231130")
+    categories = ["society", "politics", "economic"]
+    date = "20231202"
+    for category in categories:
+        crawl_daum_news(category=category, date=date)
