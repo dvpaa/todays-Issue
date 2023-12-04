@@ -1,5 +1,4 @@
 import json
-import time
 
 import requests
 from bs4 import BeautifulSoup
@@ -22,7 +21,8 @@ def crawl_daum_news(category: str, date: str):
         response = requests.get(url, params=params, headers=header)
         html = response.text
         soup = BeautifulSoup(html, 'html.parser')
-        news = soup.find("ul", {"class": "list_news2 list_allnews"}).find_all("strong", {"class": "tit_thumb"})
+        news = (soup.find("ul", {"class": "list_news2 list_allnews"})
+                .find_all("strong", {"class": "tit_thumb"}))
 
         current_page = soup.find("em", {"class": "num_page"}).text
         if page != int(current_page[7:]):
