@@ -5,10 +5,7 @@ from summarizer import Summarizer
 
 
 def summarize_news(article_text):
-    # KoBERT를 사용한 추출적 요약 모델을 불러옵니다.
     summarizer = Summarizer()
-
-    # 뉴스 기사를 요약합니다.
     summary = summarizer(article_text)
 
     return summary
