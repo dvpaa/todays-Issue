@@ -56,7 +56,7 @@ def crawl_daum_news(category: str, date: str):
         # time.sleep(0.001)
 
     json_data = json.dumps(result, ensure_ascii=False, indent=4)
-    with open(f'./data/news-{category}-{date}.json', 'w', encoding='utf-8') as file:
+    with open(f'./data/news/{category}-{date}.json', 'w', encoding='utf-8') as file:
         file.write(json_data)
 
 
@@ -74,6 +74,6 @@ def crawl_news_paragraph(url: str):
 
 if __name__ == "__main__":
     categories = ["society", "politics", "economic"]
-    date = "20231202"
+    date = "20231203"
     for category in categories:
         crawl_daum_news(category=category, date=date)

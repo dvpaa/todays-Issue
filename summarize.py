@@ -16,13 +16,13 @@ def summarize_news(article_text):
 
 if __name__ == "__main__":
     categories = ["society", "politics", "economic"]
-    date = "20231202"
+    date = "20231203"
     result = {}
     for category in categories:
-        with open(f"./data/news-{category}-{date}-result.json", 'r') as file:
+        with open(f"./data/cluster/{category}-{date}.json", 'r', encoding="UTF8") as file:
             unions = json.load(file)
 
-        with open(f"./data/news-{category}-{date}.json", 'r') as file:
+        with open(f"./data/news/{category}-{date}.json", 'r', encoding="UTF8") as file:
             news_articles = json.load(file)
 
         result[category] = []
@@ -35,5 +35,5 @@ if __name__ == "__main__":
             })
 
     json_data = json.dumps(result, ensure_ascii=False, indent=4)
-    with open(f"./data/{date}-ranking.json", "w", encoding='utf-8') as file:
+    with open(f"./data/summary/{date}-topic.json", "w", encoding='utf-8') as file:
         file.write(json_data)

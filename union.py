@@ -24,7 +24,7 @@ def union_parent(parent: list, a: int, b: int):
 
 def calculate_similarity(path: str):
     documents = []
-    with open(path, 'r') as file:
+    with open(path, 'r', encoding='UTF8') as file:
         text_data = json.load(file)
     for news in text_data:
         documents.append((news["content"]))
@@ -46,7 +46,6 @@ def clustering_news(path: str):
     for i, metrix in enumerate(cosine_sim):
         for j, val in enumerate(metrix):
             if val >= 0.7:
-                print(f'idx: {i},{j}  val: {val}')
                 union_parent(parent, i, j)
 
     d = dict()
@@ -60,14 +59,18 @@ def clustering_news(path: str):
     data = sorted(list(d.items()), key=lambda x: len(x[1]), reverse=True)
     json_data = json.dumps(data, ensure_ascii=False, indent=4)
 
-    with open(f'{path[:-5]}-result.json', 'w', encoding='utf-8') as file:
+    path_split = path.split("/")[3].split("-")
+    category = path_split[0]
+    date = path_split[1].split(".")[0]
+    new_path = f"./data/cluster/{category}-{date}.json"
+    with open(new_path, 'w', encoding='utf-8') as file:
         file.write(json_data)
 
 
 if __name__ == "__main__":
     categories = ["society", "politics", "economic"]
-    date = "20231202"
+    date = "20231203"
 
     for category in categories:
-        path = f"./data/news-{category}-{date}.json"
+        path = f"./data/news/{category}-{date}.json"
         clustering_news(path=path)
