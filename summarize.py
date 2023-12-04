@@ -16,10 +16,10 @@ if __name__ == "__main__":
     date = "20231203"
     result = {}
     for category in categories:
-        with open(f"./data/cluster/{category}-{date}.json", 'r', encoding="UTF8") as file:
+        with open(f"./data/cluster/{category}-{date}.json", 'r', encoding='utf-8') as file:
             unions = json.load(file)
 
-        with open(f"./data/news/{category}-{date}.json", 'r', encoding="UTF8") as file:
+        with open(f"./data/news/{category}-{date}.json", 'r', encoding='utf-8') as file:
             news_articles = json.load(file)
 
         result[category] = []
