@@ -46,15 +46,15 @@ def clustering_news(path: str):
             if val >= 0.7:
                 union_parent(parent, i, j)
 
-    d = dict()
+    result = dict()
     for i in range(len(parent)):
-        k = find_parent(parent, i)
-        if k in d:
-            d[k].append(i)
+        key = find_parent(parent, i)
+        if key in result:
+            result[key].append(i)
         else:
-            d[k] = [i]
+            result[key] = [i]
 
-    data = sorted(list(d.items()), key=lambda x: len(x[1]), reverse=True)
+    data = sorted(list(result.items()), key=lambda x: len(x[1]), reverse=True)
     json_data = json.dumps(data, ensure_ascii=False, indent=4)
 
     path_split = path.split("/")[3].split("-")
