@@ -29,11 +29,9 @@ def calculate_similarity(path: str):
     for news in text_data:
         documents.append((news["content"]))
 
-    # TF-IDF 벡터화
     vectorizer = TfidfVectorizer()
     tfidf_matrix = vectorizer.fit_transform(documents)
 
-    # 여러 문서 간의 코사인 유사도 계산
     cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 
     return cosine_sim
